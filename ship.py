@@ -1,11 +1,13 @@
 import pygame
+from pygame.sprite import Sprite#宇宙船残数を表示できるように追加(p88)
 
-class Ship:##宇宙船を管理するクラス(p11)
+class Ship(Sprite):##宇宙船を管理するクラス(p11), 残数を表すためspriteを継承(p88)
     
 
     def __init__(self, ai_game):
         
         self.screen = ai_game.screen#宇宙船を初期化し、開始時の位置を設定する(p11)
+        super().__init__()#p88でSpriteを継承
         self.screen_rect = ai_game.screen.get_rect()#p11
 
         self.settings = ai_game.settings#p21で追加

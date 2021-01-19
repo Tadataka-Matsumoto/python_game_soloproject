@@ -1,10 +1,14 @@
-import pygame.font
+import pygame.font#p75
+from pygame.sprite import Group#p88の宇宙船残数表示で追加
+
+from ship import Ship#宇宙船残数表示で追加(p88)
 
 class Scoreboard:
-    #得点の情報をレポートするクラス
+    #得点の情報をレポートするクラス(p75)
 
     def __init__(self, ai_game):
         #得点を記録するための属性を初期化する(settings,screen,statsオブジェクトにアクセスするため)(p75-76)
+        self.ai_game = ai_game#p88で追加def prep_shipsで使用するため(p88)
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
         self.settings = ai_game.settings
@@ -17,6 +21,8 @@ class Scoreboard:
         #初期の得点画像を準備する(p76, p83)
         self.prep_score()#p76
         self.prep_high_score()#p83
+        self.prep_level()#p85
+        self.prep_ships()#p89 
 
     def prep_score(self):
         #得点を描画用の画像に変換する(p76)
@@ -53,10 +59,32 @@ class Scoreboard:
 
 
     def show_score(self):
-        #画面に得点を描画する(p76-77, p84)
+        #画面に得点とレベルを描画する(p76-77, p84, p86, p89)(p66のボタンの長方形と同じ)
         self.screen.blit(self.score_image, self.score_rect)#p76
         self.screen.blit(self.high_score_image, self.high_score_rect)#p84
+        self.screen.blit(self.level_image, self.level_rect)#p86
+        self.ships.draw(self.screen)#宇宙船残数表示(p89)
 
+    def prep_level(self):
+        """レベルを描画用の画像に変換する(p86)"""
+        level_str = str(self.stats.level)
+        self.level_image = self.font.render(level_str, True,
+            self.text_color, self.settings.bg_color)
+
+        #得点の下にレベルを配置する
+        self.level_rect = self.level_image.get_rect()
+        self.level_rect.right = self.score_rect.right
+        self.level_rect.top = self.score_rect.bottom + 10
+
+
+    def prep_ships(self):#残数表示のため追加(p89)
+        """宇宙船の残数を表示する"""
+        self.ships = Group()
+        for ship_number in range(self.stats.ships_left):
+            ship = Ship(self.ai_game)
+            ship.rect.x = 10 + ship_number * ship.rect.width
+            ship.rect.y = 10
+            self.ships.add(ship)
 
 
 

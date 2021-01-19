@@ -17,9 +17,12 @@ class GameStats:#統計情報としてgame_stats.pyを作成し、クラスを�
 
         #ハイスコアはリセットしない(p83)
         self.high_score = 0
+        #レベルを表示する(p85)
+        self.level = 1
 
     def reset_stats(self):
         #ゲーム中に変更される統計情報を初期化する(p57)
         self.ships_left = self.settings.ship_limit
         self.score = 0#スコアを付ける(p75)
+        self.level = 1#p87にはなかったけど、追加した！！
 

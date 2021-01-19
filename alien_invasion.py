@@ -91,6 +91,10 @@ class AlienInvasion:
             self._create_fleet()
             self.settings.increase_speed()#レベルアップ（speedup)用のコード(p73)
 
+            #レベルを増やす(p86)
+            self.stats.level += 1
+            self.sb.prep_level()
+
         
 
     def _check_events(self):#p15
@@ -116,6 +120,8 @@ class AlienInvasion:
             self.stats.reset_stats()#game_stats.pyの初期化と同じリセット追加、これで宇宙船が3つになる(p69)
             self.stats.game_active = True
             self.sb.prep_score()#得点を0に戻す(p79)
+            self.sb.prep_level()#レベルを1から開始する(p87)
+            self.sb.prep_ships()#プレイボタン押したときに表示(p90)
 
             #残ったエイリアンと弾を廃棄する(p69)
             self.aliens.empty()
@@ -225,6 +231,7 @@ class AlienInvasion:
         #残りの宇宙船の数を減らす(p58)
         if self.stats.ships_left > 0:#宇宙船の数が残っているか条件分岐(p61)
             self.stats.ships_left -= 1
+            self.sb.prep_ships()#1つ宇宙船残数表示を減らす(p90)
 
             #残ったエイリアンと弾を廃棄する(p58)
             self.aliens.empty()
