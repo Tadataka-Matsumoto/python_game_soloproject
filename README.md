@@ -1,12 +1,10 @@
 # python_game_soloproject
 python game soloproject
 
+最短距離でゼロからしっかり学ぶ
+python入門のインベーダーゲームを実装する。
 
-インベーダーゲームを作りたい。方向性は変わるかも
-
-javascriptで実装する？
-
-3.8、2.7、アナコンダ？
+一応全部自分で入力して、Typoを修正しながら完了させた
 
 
 
